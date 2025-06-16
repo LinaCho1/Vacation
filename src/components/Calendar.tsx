@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { Paper, Box, Typography, Button, Chip, IconButton } from '@mui/material';
 import { DateCalendar } from '@mui/x-date-pickers/DateCalendar';
 import { Schedule } from '../types';
@@ -17,7 +17,7 @@ const PERSONS = ['조운', '지윤'] as const;
 type Person = typeof PERSONS[number];
 
 function Calendar({ events, onDeleteEvent }: CalendarProps) {
-  const [selectedDate, setSelectedDate] = React.useState<Date | null>(new Date());
+  const [selectedDate, setSelectedDate] = useState<Date | null>(new Date());
 
   const getEventsForDate = (date: Date): Schedule[] => {
     const dayOfWeek = getDay(date); // 0: 일요일, 1: 월요일, ..., 6: 토요일
@@ -190,7 +190,7 @@ function Calendar({ events, onDeleteEvent }: CalendarProps) {
                         let paperTop = 0;
                         let paperHeight = '100%';
                         if (isStart) {
-                          const [startHour, startMinute] = event.timeSlot.split('-')[0].split(':');
+                          const [, startMinute] = event.timeSlot.split('-')[0].split(':');
                           if (parseInt(startMinute, 10) === 30) {
                             paperTop = SLOT_HEIGHT / 2;
                             paperHeight = '50%';
